@@ -34,4 +34,10 @@ public class TrainerController {
     Trainer updateTrainer(@RequestBody Trainer trainer){
         return this.trainerService.createTrainer(trainer);
     }
+
+    @DeleteMapping("/{name}")
+    void deleteTrainer(@PathVariable String name){
+        this.trainerService.deleteTrainer(name);
+    }
+
 }
