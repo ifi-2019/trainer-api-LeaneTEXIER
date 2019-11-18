@@ -25,8 +25,8 @@ public class TrainerController {
         return this.trainerService.getTrainer(name);
     }
 
-//    @PostMapping("/")
-//    Trainer createTrainer(@RequestBody Trainer trainer){
-//        return this.trainerService.createTrainer(trainer);
-//    }
+    @PostMapping("/")
+    Trainer createTrainer(@RequestBody Trainer trainer){
+        return this.trainerService.createTrainer(trainer);
+    }
 }
