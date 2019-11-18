@@ -3,10 +3,7 @@ package com.ifi.trainer_api.controller;
 import com.ifi.trainer_api.bo.Trainer;
 import com.ifi.trainer_api.service.TrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/trainers")
@@ -26,5 +23,10 @@ public class TrainerController {
     @GetMapping(value = "/{name}")
     Trainer getTrainer(@PathVariable String name){
         return this.trainerService.getTrainer(name);
+    }
+
+    @PostMapping("/")
+    Trainer createTrainer(@RequestBody Trainer trainer){
+        return this.trainerService.createTrainer(trainer);
     }
 }
