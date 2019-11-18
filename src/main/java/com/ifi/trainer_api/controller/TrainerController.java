@@ -29,4 +29,9 @@ public class TrainerController {
     Trainer createTrainer(@RequestBody Trainer trainer){
         return this.trainerService.createTrainer(trainer);
     }
+
+    @PutMapping("/")
+    Trainer updateTrainer(@RequestBody Trainer trainer){
+        return this.trainerService.createTrainer(trainer);
+    }
 }
