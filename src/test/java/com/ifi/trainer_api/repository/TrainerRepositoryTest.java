@@ -53,4 +53,17 @@ class TrainerRepositoryTest {
         assertEquals(2, saved.getTeam().size());
     }
 
+    @Test
+    void testDelete(){
+        var ash = new Trainer("Ash");
+
+        repository.save(ash);
+        var saved = repository.findById(ash.getName()).orElse(null);
+        assertEquals("Ash", saved.getName());
+
+        repository.deleteById(ash.getName());
+        var deleted = repository.findById(ash.getName()).orElse(null);
+        assertEquals(null, deleted);
+    }
+
 }

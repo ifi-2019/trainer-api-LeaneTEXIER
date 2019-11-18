@@ -41,4 +41,16 @@ public class TrainerServiceImplTest {
         verify(trainerRepo).save(ash);
     }
 
+    @Test
+    void deleteTrainer_shouldCallTheRepository() {
+        var trainerRepo = mock(TrainerRepository.class);
+        var trainerService = new TrainerServiceImpl(trainerRepo);
+
+        var ash = new Trainer();
+        trainerRepo.save(ash);
+        trainerService.deleteTrainer(ash.getName());
+
+        verify(trainerRepo).deleteById(ash.getName());
+    }
+
 }
