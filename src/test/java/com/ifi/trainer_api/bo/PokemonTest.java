@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PokemonTest {
+class PokemonTest {
 
     @Test
     void pokemon_shouldBeAnEmbeddable(){

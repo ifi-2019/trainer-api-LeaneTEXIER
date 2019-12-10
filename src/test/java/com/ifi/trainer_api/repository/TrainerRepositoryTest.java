@@ -2,6 +2,8 @@ package com.ifi.trainer_api.repository;
 
 import com.ifi.trainer_api.bo.Pokemon;
 import com.ifi.trainer_api.bo.Trainer;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -64,6 +66,22 @@ class TrainerRepositoryTest {
         repository.deleteById(ash.getName());
         var deleted = repository.findById(ash.getName()).orElse(null);
         assertEquals(null, deleted);
+    }
+
+    @Test
+    void testDeleteWithPokemons(){
+        var ash = new Trainer("Ash");
+        var pikachu = new Pokemon(25, 18);
+        ash.setTeam(List.of(pikachu));
+
+        repository.save(ash);
+        var saved = repository.findById(ash.getName()).orElse(null);
+        assertEquals("Ash", saved.getName());
+        assertEquals(1, saved.getTeam().size());
+
+        repository.deleteById(ash.getName());
+        var deleted = repository.findById(ash.getName()).orElse(null);
+        assertNull(deleted);
     }
 
 }

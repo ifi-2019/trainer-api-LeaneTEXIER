@@ -8,14 +8,14 @@ import com.ifi.trainer_api.repository.TrainerRepository;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-public class TrainerServiceImplTest {
+class TrainerServiceImplTest {
 
     @Test
     void getAllTrainers_shouldCallTheRepository() {
         var trainerRepo = mock(TrainerRepository.class);
         var trainerService = new TrainerServiceImpl(trainerRepo);
 
-        trainerService.getAllTrainers();
+        trainerService.getAllTrainers("");
 
         verify(trainerRepo).findAll();
     }

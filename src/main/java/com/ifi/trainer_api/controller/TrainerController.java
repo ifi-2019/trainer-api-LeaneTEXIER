@@ -2,11 +2,10 @@ package com.ifi.trainer_api.controller;
 
 import com.ifi.trainer_api.bo.Trainer;
 import com.ifi.trainer_api.service.TrainerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/trainers")
+@RequestMapping("/")
 public class TrainerController {
 
     private final TrainerService trainerService;
@@ -15,27 +14,27 @@ public class TrainerController {
         this.trainerService = trainerService;
     }
 
-    @GetMapping("/")
-    Iterable<Trainer> getAllTrainers(){
-        return this.trainerService.getAllTrainers();
+    @GetMapping("trainers/{name}")
+    Iterable<Trainer> getAllTrainers(@PathVariable String name){
+        return this.trainerService.getAllTrainers(name);
     }
 
-    @GetMapping(value = "/{name}")
+    @GetMapping(value = "trainer/{name}")
     Trainer getTrainer(@PathVariable String name){
         return this.trainerService.getTrainer(name);
     }
 
-    @PostMapping("/")
+    @PostMapping("trainer/")
     Trainer createTrainer(@RequestBody Trainer trainer){
         return this.trainerService.createTrainer(trainer);
     }
 
-    @PutMapping("/")
+    @PutMapping("trainer/")
     Trainer updateTrainer(@RequestBody Trainer trainer){
         return this.trainerService.createTrainer(trainer);
     }
 
-    @DeleteMapping("/{name}")
+    @DeleteMapping("trainer/{name}")
     void deleteTrainer(@PathVariable String name){
         this.trainerService.deleteTrainer(name);
     }

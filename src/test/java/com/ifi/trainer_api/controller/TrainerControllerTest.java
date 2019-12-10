@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.mockito.Mockito.verify;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TrainerControllerTest {
+class TrainerControllerTest {
     @Mock
     private TrainerService trainerService;
 
@@ -24,19 +24,6 @@ public class TrainerControllerTest {
     }
 
     @Test
-    void getAllTrainers_shouldCallTheService() {
-        trainerController.getAllTrainers();
-
-        verify(trainerService).getAllTrainers();
-    }
-
-    @Test
-    void getTrainer_shouldCallTheService() {
-        trainerController.getTrainer("Ash");
-
-        verify(trainerService).getTrainer("Ash");
-    }
-    @Test
     void trainerController_shouldBeAnnotated(){
         var controllerAnnotation =
                 TrainerController.class.getAnnotation(RestController.class);
@@ -44,17 +31,31 @@ public class TrainerControllerTest {
 
         var requestMappingAnnotation =
                 TrainerController.class.getAnnotation(RequestMapping.class);
-        assertArrayEquals(new String[]{"/trainers"}, requestMappingAnnotation.value());
+        assertArrayEquals(new String[]{"/"}, requestMappingAnnotation.value());
+    }
+
+    @Test
+    void getAllTrainers_shouldCallTheService() {
+        trainerController.getAllTrainers("");
+
+        verify(trainerService).getAllTrainers("");
     }
 
     @Test
     void getAllTrainers_shouldBeAnnotated() throws NoSuchMethodException {
         var getAllTrainers =
-                TrainerController.class.getDeclaredMethod("getAllTrainers");
+                TrainerController.class.getDeclaredMethod("getAllTrainers", String.class);
         var getMapping = getAllTrainers.getAnnotation(GetMapping.class);
 
         assertNotNull(getMapping);
-        assertArrayEquals(new String[]{"/"}, getMapping.value());
+        assertArrayEquals(new String[]{"trainers/{name}"}, getMapping.value());
+    }
+
+    @Test
+    void getTrainer_shouldCallTheService() {
+        trainerController.getTrainer("Ash");
+
+        verify(trainerService).getTrainer("Ash");
     }
 
     @Test
@@ -66,9 +67,17 @@ public class TrainerControllerTest {
         var pathVariableAnnotation = getTrainer.getParameters()[0].getAnnotation(PathVariable.class);
 
         assertNotNull(getMapping);
-        assertArrayEquals(new String[]{"/{name}"}, getMapping.value());
+        assertArrayEquals(new String[]{"trainer/{name}"}, getMapping.value());
 
         assertNotNull(pathVariableAnnotation);
+    }
+
+    @Test
+    void createTrainer_shouldCallTheService() {
+        Trainer trainer = new Trainer();
+        trainerController.createTrainer(trainer);
+
+        verify(trainerService).createTrainer(trainer);
     }
 
     @Test
@@ -80,9 +89,17 @@ public class TrainerControllerTest {
         var pathVariableAnnotation = createTrainer.getParameters()[0].getAnnotation(RequestBody.class);
 
         assertNotNull(postMapping);
-        assertArrayEquals(new String[]{"/"}, postMapping.value());
+        assertArrayEquals(new String[]{"trainer/"}, postMapping.value());
 
         assertNotNull(pathVariableAnnotation);
+    }
+
+    @Test
+    void updateTrainer_shouldCallTheService() {
+        Trainer trainer = new Trainer();
+        trainerController.updateTrainer(trainer);
+
+        verify(trainerService).createTrainer(trainer);
     }
 
     @Test
@@ -94,9 +111,16 @@ public class TrainerControllerTest {
         var pathVariableAnnotation = updateTrainer.getParameters()[0].getAnnotation(RequestBody.class);
 
         assertNotNull(putMapping);
-        assertArrayEquals(new String[]{"/"}, putMapping.value());
+        assertArrayEquals(new String[]{"trainer/"}, putMapping.value());
 
         assertNotNull(pathVariableAnnotation);
+    }
+
+    @Test
+    void deleteTrainer_shouldCallTheService() {
+        trainerController.deleteTrainer("Ash");
+
+        verify(trainerService).deleteTrainer("Ash");
     }
 
     @Test
@@ -108,7 +132,7 @@ public class TrainerControllerTest {
         var pathVariableAnnotation = deleteTrainer.getParameters()[0].getAnnotation(PathVariable.class);
 
         assertNotNull(deleteMapping);
-        assertArrayEquals(new String[]{"/{name}"}, deleteMapping.value());
+        assertArrayEquals(new String[]{"trainer/{name}"}, deleteMapping.value());
 
         assertNotNull(pathVariableAnnotation);
     }

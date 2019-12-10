@@ -23,4 +23,9 @@ class TrainerTest {
         assertNotNull(Trainer.class.getDeclaredField("team").getAnnotation(ElementCollection.class));
     }
 
+    @Test
+    void trainerPassword_shouldBeAColumn() throws NoSuchFieldException {
+        assertNotNull(Trainer.class.getDeclaredField("password").getAnnotation(Column.class));
+    }
+
 }

@@ -9,8 +9,7 @@ public class Pokemon {
 
     private int level;
 
-    public Pokemon() {
-    }
+    public Pokemon() {}
 
     public Pokemon(int pokemonType, int level) {
         this.pokemonType = pokemonType;
